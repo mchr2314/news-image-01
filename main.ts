@@ -4,14 +4,14 @@ import * as crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
 /**
- * News-Image-01 V2 Entrypoint:
- * "WORLD NEWS DISPATCH — FRIDAY 13 NOVEMBER 2026 (4-PANEL EDITORIAL BROADSHEET)"
+ * News-Image-01 V4 Entrypoint:
+ * "THE GLOBAL DISPATCH — FRIDAY 13 NOVEMBER 2026 (30-STORY EDITORIAL BROADSHEET)"
  *
  * Validates and emits the 1024x1024 editorial broadsheet illustration (`dispatch.jpg`)
  * to `/output/entry.png` in strict compliance with make.fun `news-image-01` rules:
  *  - Valid JPEG stream (SOI 0xFFD8 .. EOI 0xFFD9) allowed under `/output/entry.png`
  *  - Dimensions <= 1024x1024 pixels (verified directly from SOF0/SOF2 segment headers)
- *  - Total byte size <= 1,048,576 bytes (1 MiB cap; optimized to 271614 bytes for tie-breaker)
+ *  - Total byte size <= 1,048,576 bytes (1 MiB cap; optimized to 266016 bytes for tie-breaker)
  *  - Deterministic SHA-256 integrity verification across dual container runs
  */
 
@@ -27,7 +27,7 @@ const EXPECTED_ASSET_NAME = "dispatch.jpg";
 const EXPECTED_WIDTH = 1024;
 const EXPECTED_HEIGHT = 1024;
 const MAX_BYTES = 1048576;
-const EXPECTED_SHA256 = "3dda96fc2ba1268ac197e5b462dda3c3c23cb30121c52db95c562bda29e29039";
+const EXPECTED_SHA256 = "ea02315b8aa2c2faaf454c7553a5cd13119cb4a320ab9892ef450f1742287ef4";
 
 function parseJpegDimensions(buf: Buffer): { width: number; height: number } {
   if (buf.length < 4 || buf[0] !== 0xff || buf[1] !== 0xd8) {
